@@ -361,7 +361,7 @@ python -m pytest tests/ -v
 
 ---
 
-## Interview Q&A
+## Q&A
 
 **Q: Why Kafka instead of direct REST/queue?**
 > Kafka's durable, partitioned log decouples producers from consumers, allows replay, and enables multiple consumers (processor + API) to independently read the same stream at their own pace.
