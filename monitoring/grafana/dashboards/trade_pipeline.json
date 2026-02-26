@@ -1,0 +1,198 @@
+{
+  "id": null,
+  "uid": "trade-pipeline-v1",
+  "title": "Real-Time Trade Pipeline",
+  "tags": ["trades", "kafka", "streaming"],
+  "timezone": "browser",
+  "schemaVersion": 38,
+  "version": 1,
+  "refresh": "5s",
+  "time": {"from": "now-15m", "to": "now"},
+  "panels": [
+    {
+      "id": 1,
+      "title": "Trades Produced / sec",
+      "type": "stat",
+      "gridPos": {"x": 0, "y": 0, "w": 6, "h": 4},
+      "targets": [{
+        "expr": "rate(producer_trades_total[1m])",
+        "legendFormat": "Trades/sec"
+      }],
+      "fieldConfig": {
+        "defaults": {
+          "color": {"mode": "thresholds"},
+          "thresholds": {"steps": [
+            {"color": "green", "value": null},
+            {"color": "yellow", "value": 30},
+            {"color": "red", "value": 80}
+          ]},
+          "unit": "reqps"
+        }
+      }
+    },
+    {
+      "id": 2,
+      "title": "Processing Latency (p99)",
+      "type": "stat",
+      "gridPos": {"x": 6, "y": 0, "w": 6, "h": 4},
+      "targets": [{
+        "expr": "histogram_quantile(0.99, rate(processor_latency_seconds_bucket[1m]))",
+        "legendFormat": "p99"
+      }],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s",
+          "color": {"mode": "thresholds"},
+          "thresholds": {"steps": [
+            {"color": "green", "value": null},
+            {"color": "yellow", "value": 0.01},
+            {"color": "red", "value": 0.05}
+          ]}
+        }
+      }
+    },
+    {
+      "id": 3,
+      "title": "Alerts Generated / min",
+      "type": "stat",
+      "gridPos": {"x": 12, "y": 0, "w": 6, "h": 4},
+      "targets": [{
+        "expr": "rate(processor_alerts_total[1m]) * 60",
+        "legendFormat": "Alerts/min"
+      }],
+      "fieldConfig": {
+        "defaults": {
+          "color": {"mode": "thresholds"},
+          "thresholds": {"steps": [
+            {"color": "green", "value": null},
+            {"color": "yellow", "value": 5},
+            {"color": "red", "value": 20}
+          ]}
+        }
+      }
+    },
+    {
+      "id": 4,
+      "title": "Open Circuit Breakers",
+      "type": "stat",
+      "gridPos": {"x": 18, "y": 0, "w": 6, "h": 4},
+      "targets": [{
+        "expr": "alertengine_circuit_breakers_open",
+        "legendFormat": "Open CBs"
+      }],
+      "fieldConfig": {
+        "defaults": {
+          "color": {"mode": "thresholds"},
+          "thresholds": {"steps": [
+            {"color": "green", "value": null},
+            {"color": "red", "value": 1}
+          ]}
+        }
+      }
+    },
+    {
+      "id": 5,
+      "title": "Trades Produced by Symbol",
+      "type": "timeseries",
+      "gridPos": {"x": 0, "y": 4, "w": 12, "h": 8},
+      "targets": [{
+        "expr": "rate(producer_trades_total[1m])",
+        "legendFormat": "{{symbol}}"
+      }],
+      "fieldConfig": {"defaults": {"unit": "reqps"}}
+    },
+    {
+      "id": 6,
+      "title": "Processing Latency Distribution",
+      "type": "timeseries",
+      "gridPos": {"x": 12, "y": 4, "w": 12, "h": 8},
+      "targets": [
+        {"expr": "histogram_quantile(0.50, rate(processor_latency_seconds_bucket[1m]))", "legendFormat": "p50"},
+        {"expr": "histogram_quantile(0.95, rate(processor_latency_seconds_bucket[1m]))", "legendFormat": "p95"},
+        {"expr": "histogram_quantile(0.99, rate(processor_latency_seconds_bucket[1m]))", "legendFormat": "p99"}
+      ],
+      "fieldConfig": {"defaults": {"unit": "s"}}
+    },
+    {
+      "id": 7,
+      "title": "Current Prices",
+      "type": "timeseries",
+      "gridPos": {"x": 0, "y": 12, "w": 24, "h": 8},
+      "targets": [{
+        "expr": "processor_price",
+        "legendFormat": "{{symbol}}"
+      }],
+      "fieldConfig": {"defaults": {"unit": "currencyUSD"}}
+    },
+    {
+      "id": 8,
+      "title": "Alerts by Type",
+      "type": "piechart",
+      "gridPos": {"x": 0, "y": 20, "w": 8, "h": 8},
+      "targets": [{
+        "expr": "increase(processor_alerts_total[1h])",
+        "legendFormat": "{{alert_type}}"
+      }]
+    },
+    {
+      "id": 9,
+      "title": "Alerts by Severity",
+      "type": "piechart",
+      "gridPos": {"x": 8, "y": 20, "w": 8, "h": 8},
+      "targets": [{
+        "expr": "increase(processor_alerts_total[1h])",
+        "legendFormat": "{{severity}}"
+      }]
+    },
+    {
+      "id": 10,
+      "title": "DB Write Throughput",
+      "type": "timeseries",
+      "gridPos": {"x": 16, "y": 20, "w": 8, "h": 8},
+      "targets": [{
+        "expr": "rate(processor_db_writes_total[1m])",
+        "legendFormat": "{{table}}"
+      }],
+      "fieldConfig": {"defaults": {"unit": "wps"}}
+    },
+    {
+      "id": 11,
+      "title": "Active Time Windows in Memory",
+      "type": "gauge",
+      "gridPos": {"x": 0, "y": 28, "w": 6, "h": 4},
+      "targets": [{
+        "expr": "processor_active_windows"
+      }],
+      "fieldConfig": {
+        "defaults": {
+          "max": 300,
+          "thresholds": {"steps": [
+            {"color": "green", "value": null},
+            {"color": "yellow", "value": 150},
+            {"color": "red", "value": 250}
+          ]}
+        }
+      }
+    },
+    {
+      "id": 12,
+      "title": "Alert Deduplication Rate",
+      "type": "timeseries",
+      "gridPos": {"x": 6, "y": 28, "w": 9, "h": 4},
+      "targets": [
+        {"expr": "rate(alertengine_received_total[1m])", "legendFormat": "received/min"},
+        {"expr": "rate(alertengine_deduped_total[1m])",  "legendFormat": "deduped/min"}
+      ]
+    },
+    {
+      "id": 13,
+      "title": "Kafka Consumer Lag",
+      "type": "timeseries",
+      "gridPos": {"x": 15, "y": 28, "w": 9, "h": 4},
+      "targets": [{
+        "expr": "processor_consumer_lag",
+        "legendFormat": "partition {{partition}}"
+      }]
+    }
+  ]
+}
