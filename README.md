@@ -21,27 +21,25 @@ An end-to-end **streaming data pipeline** that ingests, processes, detects anoma
 
 ---
 
-## Dashboard Preview
+## Dashboard Features
 
-### Main Dashboard
-![Dashboard](docs/screenshots/dashboard.png)
+| Tab | What it shows |
+|---|---|
+| **Dashboard** | Live price watchlist (Stocks / Crypto / Forex), 1-min candlestick chart, order book depth, scrolling trade tape, alert feed, top movers |
+| **Scanner** | Sortable table — Symbol, Price, Change %, VWAP, Volume, Buy/Sell pressure bar, BUY/SELL/NEUTRAL signal |
+| **Alerts** | Full alert history with severity filter (Critical / High / Medium) |
+| **🐋 Whales** | Volume spike alerts shown as whale cards with multiplier badge (e.g. 5.4x normal) |
 
-> Live price watchlist, 1-min candlestick charts, order book depth, trade tape, and alert feed — all streaming via WebSocket.
-
-### Market Scanner
-![Scanner](docs/screenshots/scanner.png)
-
-> Sortable scanner table with real-time VWAP, volume, buy/sell pressure, and BUY/SELL/NEUTRAL signal classification per symbol.
-
-### Whale Activity
-![Whales](docs/screenshots/whales.png)
-
-> Volume spike alerts surfaced as whale cards — detected by the anomaly engine when volume exceeds 3x rolling average.
-
-### Alert History
-![Alerts](docs/screenshots/alerts.png)
-
-> Full alert log with severity filtering (Critical / High / Medium) — powered by the circuit breaker + deduplication engine.
+**Dashboard highlights:**
+- Scrolling live ticker tape at top
+- Per-symbol sparkline mini-charts with flash-on-tick animation
+- Candlestick chart (Canvas API) with OHLCV stats and VWAP line
+- Order book bid/ask depth with fill bars
+- Symbol detail modal (click any price card) — candlestick, OHLCV, buy/sell pressure, order book
+- Sound alerts (Web Audio API) — 880Hz CRITICAL, 660Hz HIGH, 440Hz MEDIUM
+- Toast pop-ups for CRITICAL/HIGH alerts
+- CSV export of last 500 trades
+- WebSocket latency meter
 
 ---
 
