@@ -2,6 +2,7 @@
 .env
 *.env
 .env.*
+!.env.example
 
 # Python
 __pycache__/
@@ -47,3 +48,6 @@ logs/
 
 # ngrok
 /tmp/ngrok.log
+
+# Claude Code
+.claude/
