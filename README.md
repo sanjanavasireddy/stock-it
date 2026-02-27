@@ -35,6 +35,15 @@ An end-to-end **streaming data pipeline** that ingests, processes, detects anoma
 ### Whale Tracker
 ![Whales](docs/screenshots/whales.png)
 
+### API Docs
+![API Docs](docs/screenshots/api_docs.png)
+
+### Kafka UI — Topic Browser
+![Kafka UI](docs/screenshots/kafka_ui.png)
+
+### Grafana Monitoring
+![Grafana](docs/screenshots/grafana.png)
+
 ---
 
 ## Dashboard Features
