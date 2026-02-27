@@ -26,6 +26,8 @@ An end-to-end **streaming data pipeline** that ingests, processes, detects anoma
 ### Main Dashboard
 ![Dashboard](docs/screenshots/dashboard.png)
 
+![Dashboard](docs/screenshots/Main_dashboard.png)
+
 ### Scanner
 ![Scanner](docs/screenshots/scanner.png)
 
