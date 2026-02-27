@@ -21,6 +21,22 @@ An end-to-end **streaming data pipeline** that ingests, processes, detects anoma
 
 ---
 
+## Screenshots
+
+### Main Dashboard
+![Dashboard](docs/screenshots/dashboard.png)
+
+### Scanner
+![Scanner](docs/screenshots/scanner.png)
+
+### Alerts
+![Alerts](docs/screenshots/alerts.png)
+
+### Whale Tracker
+![Whales](docs/screenshots/whales.png)
+
+---
+
 ## Dashboard Features
 
 | Tab | What it shows |
